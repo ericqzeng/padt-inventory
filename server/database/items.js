@@ -1,11 +1,12 @@
 var MongoClient = require('mongodb').MongoClient;
+//TODO: have osme constants file
 var url = "mongodb://localhost:27017/";
 const ITEMS = 'items';
 var padtDB = null;
 
 /**
  * Connect the the url/padt mongoDB
- * TODO: move to some init db js fiel
+ * TODO: move to some initDB.js file
  */
 MongoClient.connect(url, (err, db) => {
     if (err) {
@@ -36,7 +37,29 @@ var getItems = (query, cb) => {
     }
 }
 
+/**
+ * Adds a new document to the items collection
+ * Items collections should have a unique name constraint
+ * 
+ * @param {object} toAdd
+ * @param {function} cb 
+ */
+var addItem = (toAdd, cb) => {
+    if (!padtDB) {
+        cb('DB not yet initialized!');
+    } else {
+        padtDB.collection(ITEMS).insert(toAdd, (err, res) => {
+            if (err) {
+                cb(err);
+            } else {
+                cb(null, res);
+            }
+        })
+    }
+}
+
 
 module.exports = {
-    getItems: getItems
+    getItems: getItems,
+    addItem: addItem,
 };
