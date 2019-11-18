@@ -2,7 +2,7 @@ var mongoose = require('../mongoconnect')();
 
 var itemsSchema = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
-    type: { type: String, required: true, trim: true, enum: ['Prop', 'Costume'] },
+    type: { type: String, required: true, trim: true, enum: ['Prop', 'Costume', 'Gear'] },
     qty: { type: Number, required: true },
     years: [{ type: String, trim: true }],
     links: [{ type: String, trim: true }],

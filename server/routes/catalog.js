@@ -52,7 +52,6 @@ router.delete('/deleteItem', (req, res, next) => {
     })
 })
 
-//TODO: single updates and deletes
 
 // var validString = (str, tgt) => {
 //     if (typeof str !== 'string' || str.trim().length < 1) {

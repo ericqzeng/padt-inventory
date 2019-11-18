@@ -1,6 +1,7 @@
 var mongoose = require('./mongoconnect')();
 var Item = require('./models/item');
 var User = require('./models/user');
+var Order = require('./models/order');
 var padtDB = mongoose.connection;
 //TODO: have some share file
 //TODO: split this into itemapi.js and userapi.js, combine with
@@ -44,7 +45,7 @@ var addItem = (toAdd, cb) => {
 }
 
 /**
- * Upadates a targetID doceument using the query parameter
+ * Updates a targetID doceument using the query parameter
  * @param {string} targetID 
  * @param {object} query 
  * @param {function} cb 
@@ -64,6 +65,11 @@ var updateItem = (targetID, query, cb) => {
     }
 }
 
+/**
+ * Deletes a targetID document
+ * @param {string} targetID 
+ * @param {function} cb 
+ */
 var deleteItem = (targetID, cb) => {
     if (!padtDB) cb('DB not yet initialized!');
     else {
@@ -95,6 +101,32 @@ var getUser = (query, cb) => {
 }
 
 
+/**
+ * Gets all orders in the system
+ * @param {function} cb 
+ */
+var getOrders = (cb) => {
+    if (!padtDB) cb('DB not yet initialized!');
+    else {
+        Order.find((err, data) => {
+            if (err) cb(err);
+            else cb(null, data);
+        })
+    }
+}
+
+var addOrder = (order, cb) => {
+    if (!padtDB) cb('DB not yet initialized!');
+    else {
+        var toSave = new Order(order);
+        toSave.save((err, data) => {
+            if (err) cb(err);
+            else cb(null, data);
+        })
+    }
+}
+
+
 module.exports = {
     getItems,
     addItem,
@@ -102,4 +134,6 @@ module.exports = {
     deleteItem,
     getUser,
     addUser,
+    getOrders,
+    addOrder
 };
