@@ -1,9 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Catalog from './catalog'
+import CatalogPage from './catalog/CatalogPage';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from './redux/reducer'
 
 function App() {
+  let store = createStore(reducer)
   return (
     // <div className="App">
     //   <header className="App-header">
@@ -21,7 +25,9 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <Catalog></Catalog>
+    <Provider store={store}>
+      <CatalogPage></CatalogPage>
+    </Provider>
   );
 }
 

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm start",
     "server": "cd server && npm start",
-    "start": "npm run server && npm run client"
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/ericqzeng/padt-inventory/issues"
   },
-  "homepage": "https://github.com/ericqzeng/padt-inventory#readme"
+  "homepage": "https://github.com/ericqzeng/padt-inventory#readme",
+  "devDependencies": {
+    "concurrently": "5.0.0"
+  }
 }
