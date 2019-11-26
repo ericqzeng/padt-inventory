@@ -4,9 +4,6 @@ import { setItemDialogData } from '../redux/actions';
 import { Grid, Typography, Card } from '@material-ui/core';
 
 class ItemCell extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     itemClicked() {
         console.log('clicked!')

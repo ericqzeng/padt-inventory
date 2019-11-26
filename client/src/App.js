@@ -1,10 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Login from './login/Login';
 import CatalogPage from './catalog/CatalogPage';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './redux/reducer'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 function App() {
   let store = createStore(reducer)
@@ -25,8 +27,14 @@ function App() {
     //     </a>
     //   </header>
     // </div>
+    //TODO: add login page
     <Provider store={store}>
-      <CatalogPage></CatalogPage>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={Login} />
+          <Route exact path='/catalog' component={CatalogPage}></Route>
+        </Switch>
+      </BrowserRouter>
     </Provider>
   );
 }

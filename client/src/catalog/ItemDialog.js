@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { setItemDialogData } from '../redux/actions';
 import axios from 'axios';
-import { FormHelperText, Button, Select, TextField, FormControl, Paper, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import { FormHelperText, Button, TextField, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 
 class ItemDialog extends React.Component {
 

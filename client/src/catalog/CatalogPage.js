@@ -1,14 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { FormHelperText, Button, Select, TextField, FormControl, MenuItem, Paper, Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import ItemCell from './ItemCell'
 import Search from './Search'
 import ItemDialog from './ItemDialog'
 
 class CatalogPage extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         let table = this.props.data.map((ele, index) => {
