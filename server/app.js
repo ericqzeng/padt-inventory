@@ -23,13 +23,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'disisasecret' }));
+app.use(session({
+  secret: 'disisasecret',
+  resave: false,
+  saveUninitialized: false
+}));
 app.use(flash());
 app.use(passport.initialize())
 app.use(passport.session())
 
 
-app.use('/', indexRouter); //TODO: don't need!
 app.use('/api/catalog', catalogRouter);
 app.use('/api/account', accountRouter);
 app.use('/api/request', requestRouter);

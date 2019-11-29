@@ -3,7 +3,10 @@ import * as acts from './actions'
 var initState = {
     data: [],
     itemDialogData: null,
-    itemDialog: false
+    itemDialog: false,
+    openOrders: [],
+    ordersDrawer: false,
+    email: null
 }
 
 /**
@@ -24,6 +27,21 @@ var reducer = function (state = initState, action) {
                 ...state,
                 itemDialogData: action.data,
                 itemDialog: action.flag
+            }
+        case acts.SET_OPEN_ORDERS:
+            return {
+                ...state,
+                openOrders: action.data
+            }
+        case acts.SHOW_ORDERS_DRAWER:
+            return {
+                ...state,
+                ordersDrawer: action.flag
+            }
+        case acts.SET_EMAIL:
+            return {
+                ...state,
+                email: action.email
             }
         default:
             return state

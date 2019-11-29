@@ -1,11 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Grid } from '@material-ui/core';
+import axios from 'axios';
 import ItemCell from './ItemCell'
 import Search from './Search'
 import ItemDialog from './ItemDialog'
+import OrdersDialog from './OrdersDialog'
+import { setOpenOrders } from '../redux/actions'
 
 class CatalogPage extends React.Component {
+    constructor(props) {
+        super(props)
+
+        // Pulls the appropriate ordesr accessible by this user
+        console.log(this.props.email) //TODO: this isn't persistent...(at least cookie is)
+        axios.get('/api/request/').then(res => {
+            this.props.setOpenOrders(res.data)
+        }, err => {
+            alert(err)
+        })
+    }
 
     render() {
         let table = this.props.data.map((ele, index) => {
@@ -26,6 +40,7 @@ class CatalogPage extends React.Component {
                     </Grid>
                 </Grid>
                 <ItemDialog></ItemDialog>
+                <OrdersDialog></OrdersDialog>
             </div>
         );
     }
@@ -33,4 +48,4 @@ class CatalogPage extends React.Component {
 
 export default connect((state) => {
     return state
-})(CatalogPage)
+}, { setOpenOrders })(CatalogPage)

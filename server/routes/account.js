@@ -43,7 +43,6 @@ passport.use(new LocalStrat({
                 bcrypt.compare(pass, data[0].pass).then((ok) => {
                     if (ok) {
                         console.log('Logged in: ' + email);
-                        //TODO: set session in req.session
                         return done(null, data[0])
                     } else {
                         console.log("Wrong password")

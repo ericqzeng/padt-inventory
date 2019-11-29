@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { setItemDialogData } from '../redux/actions';
+import { setItemDialogData, setOpenOrders } from '../redux/actions';
 import axios from 'axios';
 import { FormHelperText, Button, TextField, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 
@@ -44,10 +44,15 @@ class ItemDialog extends React.Component {
         } else {
             axios.post('/api/request/addOrder', {
                 ...this.state,
-                itemID: this.props.itemDialogData._id,
-                requestor: 'TODO' //TODO: get user session name
+                itemID: this.props.itemDialogData._id
             }).then(res => {
                 //TODO: close dialog, show success message, pull new requests data if admin
+                axios.get('/api/request/').then(res => {
+                    this.props.setOpenOrders(res.data)
+                }, err => {
+                    alert(err)
+                });
+                this.handleClose()
             }, err => {
                 alert(err)
             })
@@ -99,4 +104,4 @@ class ItemDialog extends React.Component {
 }
 
 
-export default connect((state) => { return state }, { setItemDialogData })(ItemDialog)
+export default connect((state) => { return state }, { setItemDialogData, setOpenOrders })(ItemDialog)

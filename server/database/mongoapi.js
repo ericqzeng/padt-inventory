@@ -102,13 +102,13 @@ var getUser = (query, cb) => {
 
 
 /**
- * Gets all orders in the system
+ * Gets orders in the system for this user
  * @param {function} cb 
  */
-var getOrders = (cb) => {
+var getOrders = (query, cb) => {
     if (!padtDB) cb('DB not yet initialized!');
     else {
-        Order.find((err, data) => {
+        Order.find(query, (err, data) => {
             if (err) cb(err);
             else cb(null, data);
         })

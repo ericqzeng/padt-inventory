@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import reducer from '../redux/reducer'
-import { FormHelperText, Button, Select, TextField, FormControl, MenuItem, Paper, Grid, Typography } from '@material-ui/core';
+import { setEmail } from '../redux/actions';
+import { FormHelperText, Button, TextField, FormControl, Grid, Typography } from '@material-ui/core';
 
 
 class Login extends React.Component {
@@ -30,8 +30,7 @@ class Login extends React.Component {
             email: this.state.email,
             pwd: this.state.pwd //TODO: bcrypt this!
         }).then(res => {
-            //TODO: deal with user data being pushed back?!!!
-            console.log(res)
+            this.props.setEmail(this.state.email)
             this.setState({
                 redirect: true
             })
@@ -69,5 +68,7 @@ class Login extends React.Component {
     }
 }
 
-export default Login
+export default connect((state) => {
+    return state
+}, { setEmail })(Login)
 

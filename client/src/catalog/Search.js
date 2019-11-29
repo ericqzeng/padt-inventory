@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import { connect } from "react-redux";
-import { setResults } from '../redux/actions'
+import { setResults, showOrdersDrawer } from '../redux/actions'
 import { FormHelperText, Button, Select, TextField, FormControl, MenuItem, Paper } from '@material-ui/core';
 
 class Search extends React.Component {
@@ -70,6 +70,9 @@ class Search extends React.Component {
                         <Button onClick={this.doSearch} color='primary'>Full send</Button>
                     </form>
                 </Paper>
+                <Paper>
+                    <Button onClick={() => this.props.showOrdersDrawer(true)}>Orders</Button>
+                </Paper>
             </div>
         );
     }
@@ -81,7 +84,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-    setResults
+    setResults,
+    showOrdersDrawer
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
