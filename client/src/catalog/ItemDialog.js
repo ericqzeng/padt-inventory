@@ -44,7 +44,8 @@ class ItemDialog extends React.Component {
         } else {
             axios.post('/api/request/addOrder', {
                 ...this.state,
-                itemID: this.props.itemDialogData._id
+                itemID: this.props.itemDialogData._id,
+                itemName: this.props.itemDialogData.name
             }).then(res => {
                 //TODO: close dialog, show success message, pull new requests data if admin
                 axios.get('/api/request/').then(res => {

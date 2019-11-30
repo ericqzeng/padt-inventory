@@ -1,7 +1,7 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import { connect } from "react-redux";
-import { setResults, showOrdersDrawer } from '../redux/actions'
+import { setResults } from '../redux/actions'
 import { FormHelperText, Button, Select, TextField, FormControl, MenuItem, Paper } from '@material-ui/core';
 
 class Search extends React.Component {
@@ -9,8 +9,7 @@ class Search extends React.Component {
         super(props)
         this.state = {
             name: '',
-            type: '',
-            // years: []
+            type: ''
         }
     }
 
@@ -70,9 +69,6 @@ class Search extends React.Component {
                         <Button onClick={this.doSearch} color='primary'>Full send</Button>
                     </form>
                 </Paper>
-                <Paper>
-                    <Button onClick={() => this.props.showOrdersDrawer(true)}>Orders</Button>
-                </Paper>
             </div>
         );
     }
@@ -84,8 +80,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-    setResults,
-    showOrdersDrawer
+    setResults
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

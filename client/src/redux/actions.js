@@ -2,7 +2,7 @@ export const RESULTS = 'RESULTS';
 export const SET_ITEM_DIALOG_DATA = 'SET_ITEM_DIALOG_DATA';
 export const SHOW_ORDERS_DRAWER = 'SHOW_ORDERS_DRAWER';
 export const SET_OPEN_ORDERS = 'SET_OPEN_ORDERS';
-export const SET_EMAIL = 'SET_EMAIL';
+export const SET_USER = 'SET_USER';
 
 
 export function setResults(results) {
@@ -34,9 +34,9 @@ export function setOpenOrders(data) {
     }
 }
 
-export function setEmail(email) {
+export function setUser(user) {
     return {
-        type: SET_EMAIL,
-        email: email
+        type: SET_USER,
+        user: user
     }
 }

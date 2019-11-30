@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
     db.getItems(req.query, (err, data) => {
         if (err) {
             console.log(err);
-            res.send(err)
+            res.status(500).send(err)
         } else {
             console.log('getItems done')
             res.send(data);
@@ -20,7 +20,7 @@ router.post('/addItem', (req, res, next) => {
     db.addItem(req.body, (err, data) => {
         if (err) {
             console.log(err);
-            res.send(err);
+            res.status(500).send(err);
         } else {
             console.log('added a new item')
             res.send(data);
@@ -32,7 +32,7 @@ router.post('/updateItem', (req, res, next) => {
     db.updateItem(req.body._id, req.body, (err, data) => {
         if (err) {
             console.log(err);
-            res.send(err);
+            res.status(500).send(err);
         } else {
             console.log('updated item')
             res.send(data);
@@ -44,7 +44,7 @@ router.delete('/deleteItem', (req, res, next) => {
     db.deleteItem(req.body._id, (err, data) => {
         if (err) {
             console.log(err);
-            res.send(err);
+            res.status(500).send(err);
         } else {
             console.log('deleted item')
             res.send(data);

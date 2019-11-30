@@ -1,25 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Grid, Drawer, ListItem, ListItemText, List } from '@material-ui/core';
+import { Grid, Drawer, Divider, ListItem, ListItemText, List, Paper } from '@material-ui/core';
 import { setOpenOrders, showOrdersDrawer } from '../redux/actions'
 
 class OrdersDialog extends React.Component {
     render() {
         let openOrders = this.props.openOrders.map((ele, index) => {
             return (
-                <ListItem key={index}>
-                    <ListItemText />{ele.itemID}
+                <Grid container direction='column'>
+                    <Divider />
+                    <ListItemText /><h4>{ele.itemName}</h4>
                     <ListItemText />{ele.requestor}
-                </ListItem>);
+                    <ListItemText />Qty: {ele.qty}
+                    <ListItemText />Reason:
+                    <ListItemText />{ele.reason}
+                </Grid>
+            );
 
         })
 
 
         return (
             <Drawer anchor="right" open={this.props.ordersDrawer} onClose={() => this.props.showOrdersDrawer(false)}>
-                <List>
-                    {openOrders}
-                </List>
+                Your Open Orders
+                {openOrders}
             </Drawer >
         )
     }

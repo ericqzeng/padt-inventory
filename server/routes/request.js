@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
     db.getOrders({ requestor: req.user[0].email }, (err, data) => {
         if (err) {
             console.log(err);
-            res.send(err);
+            res.status(500).send(err);
         } else {
             console.log('retrieved all orders');
             res.send(data)
@@ -25,7 +25,7 @@ router.post('/addOrder', (req, res, next) => {
     }, (err, data) => {
         if (err) {
             console.log(err);
-            res.send(err);
+            res.status(500).send(err);
         } else {
             console.log('new order placed');
             res.send(data)

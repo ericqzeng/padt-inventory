@@ -7,7 +7,6 @@ var session = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
 
-var indexRouter = require('./routes/index');
 var catalogRouter = require('./routes/catalog');
 var accountRouter = require('./routes/account');
 var requestRouter = require('./routes/request');

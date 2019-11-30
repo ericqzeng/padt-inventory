@@ -6,7 +6,11 @@ var initState = {
     itemDialog: false,
     openOrders: [],
     ordersDrawer: false,
-    email: null
+    user: {
+        name: '',
+        email: '',
+        admin: false
+    }
 }
 
 /**
@@ -38,10 +42,10 @@ var reducer = function (state = initState, action) {
                 ...state,
                 ordersDrawer: action.flag
             }
-        case acts.SET_EMAIL:
+        case acts.SET_USER:
             return {
                 ...state,
-                email: action.email
+                user: action.user
             }
         default:
             return state

@@ -63,7 +63,7 @@ router.get('/', (req, res, next) => {
     db.getUser(req.query, (err, data) => {
         if (err) {
             console.log(err)
-            res.send(err)
+            res.status(500).send(err)
         } else {
             console.log("getUser done")
             res.send(data)
@@ -71,11 +71,16 @@ router.get('/', (req, res, next) => {
     })
 })
 
+router.get('/loggedInUser', (req, res, next) => {
+    if (!req.user[0]) res.status(500).send('No user logged in!')
+    res.send(req.user[0])
+})
+
 router.post('/addUser', (req, res, next) => {
     db.addUser(req.body, (err, data) => {
         if (err) {
             console.log(err)
-            res.send(err)
+            res.status(500).json(err)
         } else {
             console.log("new user added")
             res.send(data)
