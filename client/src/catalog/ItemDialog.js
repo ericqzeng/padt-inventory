@@ -47,12 +47,20 @@ class ItemDialog extends React.Component {
                 itemID: this.props.itemDialogData._id,
                 itemName: this.props.itemDialogData.name
             }).then(res => {
-                //TODO: close dialog, show success message, pull new requests data if admin
-                axios.get('/api/request/').then(res => {
-                    this.props.setOpenOrders(res.data)
-                }, err => {
-                    alert(err)
-                });
+                //TODO: show success message
+                if (this.props.user.admin) {
+                    axios.get('/api/request/all').then(res2 => {
+                        this.props.setOpenOrders(res2.data)
+                    }, err => {
+                        alert(err)
+                    })
+                } else {
+                    axios.get('/api/request/').then(res2 => {
+                        this.props.setOpenOrders(res2.data)
+                    }, err => {
+                        alert(err)
+                    })
+                }
                 this.handleClose()
             }, err => {
                 alert(err)

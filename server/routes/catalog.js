@@ -5,6 +5,7 @@ var db = require('../database/mongoapi')
  * Load default catalog view
  */
 router.get('/', (req, res, next) => {
+    if (!req.user[0].email) res.status(400).send('No User logged in!')
     db.getItems(req.query, (err, data) => {
         if (err) {
             console.log(err);
@@ -17,6 +18,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/addItem', (req, res, next) => {
+    if (!req.user[0].email) res.status(400).send('No User logged in!')
+    if (!req.user[0].admin) res.status(400).send('User not admin!')
     db.addItem(req.body, (err, data) => {
         if (err) {
             console.log(err);
@@ -29,6 +32,8 @@ router.post('/addItem', (req, res, next) => {
 });
 
 router.post('/updateItem', (req, res, next) => {
+    if (!req.user[0].email) res.status(400).send('No User logged in!')
+    if (!req.user[0].admin) res.status(400).send('User not admin!')
     db.updateItem(req.body._id, req.body, (err, data) => {
         if (err) {
             console.log(err);
@@ -41,6 +46,8 @@ router.post('/updateItem', (req, res, next) => {
 })
 
 router.delete('/deleteItem', (req, res, next) => {
+    if (!req.user[0].email) res.status(400).send('No User logged in!')
+    if (!req.user[0].admin) res.status(400).send('User not admin!')
     db.deleteItem(req.body._id, (err, data) => {
         if (err) {
             console.log(err);

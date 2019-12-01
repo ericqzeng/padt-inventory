@@ -17,17 +17,49 @@ router.get('/', (req, res, next) => {
     })
 })
 
+/**
+ * Gets all open order for the given admin user
+ */
+router.get('/all', (req, res, next) => {
+    if (!req.user[0].email) res.status(400).send('No User logged in!')
+    if (!req.user[0].admin) res.status(400).send("User not admin!")
+    db.getOrders({ fulfilled: 'PENDING' }, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            console.log('retrieved all orders');
+            res.send(data)
+        }
+    })
+})
+
 router.post('/addOrder', (req, res, next) => {
     if (!req.user[0].email) res.status(400).send('No User logged in!')
     db.addOrder({
         ...req.body,
-        requestor: req.user[0].email
+        requestor: req.user[0].email,
+        fulfilled: 'PENDING'
     }, (err, data) => {
         if (err) {
             console.log(err);
             res.status(500).send(err);
         } else {
             console.log('new order placed');
+            res.send(data)
+        }
+    })
+})
+
+router.post('/fulfillOrder', (req, res, next) => {
+    if (!req.user[0].email) res.status(400).send('No User logged in!')
+    if (!req.user[0].admin) res.status(400).send('User not admin!')
+    db.updateOrder(req.body.id, { $set: { fulfilled: req.body.status } }, (err, data) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send(err)
+        } else {
+            console.log('order ' + req.body.id + ' updated to ' + req.body.status)
             res.send(data)
         }
     })

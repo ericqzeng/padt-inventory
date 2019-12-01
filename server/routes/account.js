@@ -80,7 +80,7 @@ router.post('/addUser', (req, res, next) => {
     db.addUser(req.body, (err, data) => {
         if (err) {
             console.log(err)
-            res.status(500).json(err)
+            res.status(500).send(err)
         } else {
             console.log("new user added")
             res.send(data)

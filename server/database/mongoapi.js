@@ -126,6 +126,21 @@ var addOrder = (order, cb) => {
     }
 }
 
+var updateOrder = (targetID, query, cb) => {
+    if (!padtDB) cb('DB not yet initialized!');
+    else {
+        //TODO: preprocess update query?
+        Order.findOneAndUpdate({ _id: targetID }, query, { new: true, runValidators: true }).then(res => {
+            if (res === null) {
+                cb('Could not find ID')
+                return
+            } else {
+                cb(null, res)
+            }
+        }, err => cb(err))
+    }
+}
+
 
 module.exports = {
     getItems,
@@ -135,5 +150,6 @@ module.exports = {
     getUser,
     addUser,
     getOrders,
-    addOrder
+    addOrder,
+    updateOrder
 };

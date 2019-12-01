@@ -1,4 +1,5 @@
 export const RESULTS = 'RESULTS';
+export const SHOW_ADD_ITEM_DIALOG = 'SHOW_ADD_ITEM_DIALOG';
 export const SET_ITEM_DIALOG_DATA = 'SET_ITEM_DIALOG_DATA';
 export const SHOW_ORDERS_DRAWER = 'SHOW_ORDERS_DRAWER';
 export const SET_OPEN_ORDERS = 'SET_OPEN_ORDERS';
@@ -9,6 +10,13 @@ export function setResults(results) {
     return {
         type: RESULTS,
         data: results
+    }
+}
+
+export function showAddItemDialog(flag) {
+    return {
+        type: SHOW_ADD_ITEM_DIALOG,
+        flag: flag
     }
 }
 

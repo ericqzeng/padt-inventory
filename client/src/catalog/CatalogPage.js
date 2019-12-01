@@ -6,20 +6,29 @@ import ItemCell from './ItemCell'
 import Search from './Search'
 import ItemDialog from './ItemDialog'
 import OrdersDialog from './OrdersDialog'
-import { setOpenOrders, showOrdersDrawer, setUser } from '../redux/actions'
+import AddItemDialog from './AddItemDialog'
+import { showAddItemDialog, setOpenOrders, showOrdersDrawer, setUser } from '../redux/actions'
 
 class CatalogPage extends React.Component {
     constructor(props) {
         super(props)
 
-        // Pulls the appropriate ordesr accessible by this user
+        // Pulls the appropriate orders accessible by this user
         axios.get('/api/account/loggedInUser').then(res => {
             this.props.setUser(res.data)
-        }, err => {
-            alert(err)
-        })
-        axios.get('/api/request/').then(res => {
-            this.props.setOpenOrders(res.data)
+            if (res.data.admin) {
+                axios.get('/api/request/all').then(res2 => {
+                    this.props.setOpenOrders(res2.data)
+                }, err => {
+                    alert(err)
+                })
+            } else {
+                axios.get('/api/request/').then(res2 => {
+                    this.props.setOpenOrders(res2.data)
+                }, err => {
+                    alert(err)
+                })
+            }
         }, err => {
             alert(err)
         })
@@ -40,7 +49,7 @@ class CatalogPage extends React.Component {
                         <Search></Search>
                     </Grid>
                     <Grid container direction='column' item xs={2}>
-                        <Button color='primary'>Add Item</Button>
+                        <Button color='primary' onClick={() => this.props.showAddItemDialog(true)}>Add Item</Button>
                         <Button color='primary' onClick={() => this.props.showOrdersDrawer(true)}>Open Orders</Button>
                     </Grid>
                 </Grid>
@@ -69,6 +78,7 @@ class CatalogPage extends React.Component {
                 </Grid>
                 <ItemDialog></ItemDialog>
                 <OrdersDialog></OrdersDialog>
+                <AddItemDialog></AddItemDialog>
             </div >
         );
     }
@@ -76,4 +86,4 @@ class CatalogPage extends React.Component {
 
 export default connect((state) => {
     return state
-}, { setOpenOrders, showOrdersDrawer, setUser })(CatalogPage)
+}, { showAddItemDialog, setOpenOrders, showOrdersDrawer, setUser })(CatalogPage)

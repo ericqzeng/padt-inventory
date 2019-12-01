@@ -2,6 +2,7 @@ import * as acts from './actions'
 
 var initState = {
     data: [],
+    addItemDialog: false,
     itemDialogData: null,
     itemDialog: false,
     openOrders: [],
@@ -25,6 +26,11 @@ var reducer = function (state = initState, action) {
             return {
                 ...state,
                 data: action.data
+            }
+        case acts.SHOW_ADD_ITEM_DIALOG:
+            return {
+                ...state,
+                addItemDialog: action.flag
             }
         case acts.SET_ITEM_DIALOG_DATA:
             return {

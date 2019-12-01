@@ -67,7 +67,7 @@ class Login extends React.Component {
                                 <TextField type='password' name='pwd' value={this.state.pwd} onChange={this.handleChange} />
                                 <FormHelperText>Password</FormHelperText>
                             </FormControl>
-                            <Grid container xs={12} justify='center'>
+                            <Grid container item xs={12} justify='center'>
                                 <Button onClick={this.handleSubmit}>Login</Button>
                                 <Button onClick={this.handleSignup}>Signup</Button>
                             </Grid>
