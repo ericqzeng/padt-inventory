@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var url = "ds251158.mlab.com:51158/heroku_jnj6jb6x";
+var url = "mongodb://ds251158.mlab.com:51158/heroku_jnj6jb6x";
 
 module.exports = () => {
     if (mongoose.connection.readyState === 0) {
