@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { showAddItemDialog } from '../redux/actions';
 import axios from 'axios';
-import { FormHelperText, Button, TextField, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Select, MenuItem } from '@material-ui/core';
+import { FormHelperText, Button, TextField, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Select, MenuItem, Grid } from '@material-ui/core';
 
 class AddItemDialog extends React.Component {
 
@@ -12,10 +12,10 @@ class AddItemDialog extends React.Component {
             name: '',
             type: '',
             qty: 0,
-            years: [],
-            links: [],
+            years: '',
+            links: '',
             locations: [],
-            images: []
+            images: ''
         }
     }
 
@@ -25,22 +25,19 @@ class AddItemDialog extends React.Component {
             name: '',
             type: '',
             qty: 0,
-            years: [],
-            links: [],
+            years: '',
+            links: '',
             locations: [],
-            images: []
+            images: ''
         })
     }
 
     handleSubmit = (event) => {
-        //name trim
-        this.setState({
-            ...this.state,
-            name: this.state.name.trim()
-        })
         //validation
         if (this.state.type === '') {
             alert('Item needs a type!')
+        } else if (this.state.locations.length === 0) {
+            alert('Must include at least 1 location!')
         } else if (this.state.qty < 0) {
             this.setState({
                 ...this.state,
@@ -54,6 +51,20 @@ class AddItemDialog extends React.Component {
             })
             alert('Please include a name!');
         } else {
+            //cleanup and send
+            this.setState({
+                ...this.state,
+                name: this.state.name.trim(),
+                years: this.state.years.split(',').map((ele, index) => {
+                    return ele.trim()
+                }),
+                links: this.state.links.split(',').map((ele, index) => {
+                    return ele.trim()
+                }),
+                images: this.state.images.split(',').map((ele, index) => {
+                    return ele.trim()
+                })
+            })
             axios.post('/api/catalog/addItem', {
                 ...this.state
             }).then(res => {
@@ -86,38 +97,46 @@ class AddItemDialog extends React.Component {
             <Dialog open={this.props.addItemDialog} onClose={this.handleClose}>
                 <DialogTitle>Add New Item</DialogTitle>
                 <DialogContent>
-                    <FormControl>
-                        <TextField type='text' name='name' value={this.state.name} onChange={this.handleChange}></TextField>
-                        <FormHelperText>Item Name</FormHelperText>
-                    </FormControl>
-                    <FormControl>
-                        <Select name='type' value={this.state.type} onChange={this.handleChange}>
-                            <MenuItem value='Costume'>Costume</MenuItem>
-                            <MenuItem value='Prop'>Prop</MenuItem>
-                            <MenuItem value='Gear'>Gear</MenuItem>
-                        </Select>
-                        <FormHelperText>Type</FormHelperText>
-                    </FormControl>
-                    <FormControl>
-                        <TextField type='number' name='qty' value={this.state.qty} onChange={this.handleChange}></TextField>
-                        <FormHelperText>Quantity</FormHelperText>
-                    </FormControl>
-                    <FormControl>
-                        <TextField type='text' name='years' value={this.state.years} onChange={this.handleChange}></TextField>
-                        <FormHelperText>Year Used</FormHelperText>
-                    </FormControl>
-                    <FormControl>
-                        <TextField type='text' name='links' value={this.state.links} onChange={this.handleChange}></TextField>
-                        <FormHelperText>Links</FormHelperText>
-                    </FormControl>
-                    <FormControl>
-                        <TextField type='text' name='locations' value={this.state.locations} onChange={this.handleChange}></TextField>
-                        <FormHelperText>Locations</FormHelperText>
-                    </FormControl>
-                    <FormControl>
-                        <TextField type='text' name='images' value={this.state.images} onChange={this.handleChange}></TextField>
-                        <FormHelperText>Image Links</FormHelperText>
-                    </FormControl>
+                    <Grid>
+                        <FormControl>
+                            <TextField className='m5' type='text' name='name' value={this.state.name} onChange={this.handleChange}></TextField>
+                            <FormHelperText>Item Name</FormHelperText>
+                        </FormControl>
+                        <FormControl>
+                            <Select className='m5' name='type' value={this.state.type} onChange={this.handleChange}>
+                                <MenuItem value='Costume'>Costume</MenuItem>
+                                <MenuItem value='Prop'>Prop</MenuItem>
+                                <MenuItem value='Gear'>Gear</MenuItem>
+                            </Select>
+                            <FormHelperText>Type</FormHelperText>
+                        </FormControl>
+                        <FormControl>
+                            <TextField className='m5 qtyInput' type='number' name='qty' value={this.state.qty} onChange={this.handleChange}></TextField>
+                            <FormHelperText>Quantity</FormHelperText>
+                        </FormControl>
+                    </Grid>
+                    <Grid container direction='column'>
+                        <FormControl>
+                            <Select multiple className='m5' name='locations' value={this.state.locations} onChange={this.handleChange}>
+                                <MenuItem value='Houston Hall Locker 30'>Houston Hall Locker 30</MenuItem>
+                                <MenuItem value='Houston Hall Locker 31'>Houston Hall Locker 31</MenuItem>
+                                <MenuItem value='Platt Locker'>Platt Locker</MenuItem>
+                            </Select>
+                            <FormHelperText>Locations</FormHelperText>
+                        </FormControl>
+                        <FormControl>
+                            <TextField className='m5' type='text' name='years' value={this.state.years} onChange={this.handleChange}></TextField>
+                            <FormHelperText>Year Used (comma separated)</FormHelperText>
+                        </FormControl>
+                        <FormControl>
+                            <TextField className='m5' type='text' name='links' value={this.state.links} onChange={this.handleChange}></TextField>
+                            <FormHelperText>Links (comma separated)</FormHelperText>
+                        </FormControl>
+                        <FormControl>
+                            <TextField className='m5' type='text' name='images' value={this.state.images} onChange={this.handleChange}></TextField>
+                            <FormHelperText>Image Links (comma separated)</FormHelperText>
+                        </FormControl>
+                    </Grid>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleSubmit}>

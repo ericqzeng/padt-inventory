@@ -9,7 +9,6 @@ import { setOpenOrders, showOrdersDrawer } from '../redux/actions'
 class OrdersDialog extends React.Component {
 
     handleFulfill = (index, status) => {
-        console.log(this.props.openOrders[index]._id)
         axios.post('/api/request/fulfillOrder', {
             id: this.props.openOrders[index]._id,
             status: status
@@ -27,7 +26,7 @@ class OrdersDialog extends React.Component {
         //TODO: give admins ability to approve deny here
         let openOrders = this.props.openOrders.map((ele, index) => {
             return (
-                <Grid container item direction='column' key={index}>
+                <Grid className='m5' container item direction='column' key={index}>
                     <Divider />
                     <ListItemText /><h4>{ele.itemName}</h4>
                     <ListItemText />{ele.requestor}
@@ -63,14 +62,14 @@ class OrdersDialog extends React.Component {
         if (this.props.user.admin) {
             return (
                 <Drawer anchor="right" open={this.props.ordersDrawer} onClose={() => this.props.showOrdersDrawer(false)}>
-                    All Open Orders
+                    <p className='m5'>All Open Orders</p>
                     {openOrders}
                 </Drawer >
             )
         } else {
             return (
                 <Drawer anchor="right" open={this.props.ordersDrawer} onClose={() => this.props.showOrdersDrawer(false)}>
-                    Your Orders
+                    <p className='m5'>Your Orders</p>
                     {openOrders}
                 </Drawer >
             )

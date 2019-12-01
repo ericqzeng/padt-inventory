@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './redux/reducer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import './css/styles.css'
 
 function App() {
   let store = createStore(reducer)

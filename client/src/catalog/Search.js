@@ -51,10 +51,10 @@ class Search extends React.Component {
                 <Paper>
                     <form onSubmit={this.doSearch} >
                         <FormControl>
-                            <TextField name='name' value={this.state.name} onChange={this.changeHandler} placeholder='Item name' />
+                            <TextField className='m5' name='name' value={this.state.name} onChange={this.changeHandler} placeholder='Item name' />
                         </FormControl>
                         <FormControl>
-                            <Select name='type' value={this.state.type} onChange={this.changeHandler}>
+                            <Select className='m5' name='type' value={this.state.type} onChange={this.changeHandler}>
                                 <MenuItem value=''>Any</MenuItem>
                                 <MenuItem value='Costume'>Costume</MenuItem>
                                 <MenuItem value='Prop'>Prop</MenuItem>

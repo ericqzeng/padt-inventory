@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { setItemDialogData, setOpenOrders } from '../redux/actions';
 import axios from 'axios';
-import { FormHelperText, Button, TextField, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import { FormHelperText, Button, TextField, FormControl, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Grid } from '@material-ui/core';
 
 class ItemDialog extends React.Component {
 
@@ -90,24 +90,28 @@ class ItemDialog extends React.Component {
                     <DialogContentText>{this.props.itemDialogData.images}</DialogContentText>
                     <DialogContentText>{this.props.itemDialogData.type}</DialogContentText>
                     <DialogContentText>Qty: {this.props.itemDialogData.qty}</DialogContentText>
-                    <DialogContentText>Years used: {this.props.itemDialogData.years}</DialogContentText>
-                    <DialogContentText>Links: {this.props.itemDialogData.links}</DialogContentText>
-                    <DialogContentText>Locations: {this.props.itemDialogData.locations}</DialogContentText>
-                    <FormControl>
-                        <TextField type='number' name='qty' value={this.state.qty} onChange={this.handleChange}></TextField>
-                        <FormHelperText>Requested Number</FormHelperText>
-                    </FormControl>
-                    <FormControl>
-                        <TextField type='text' name='reason' value={this.state.reason} onChange={this.handleChange}></TextField>
-                        <FormHelperText>Reason</FormHelperText>
-                    </FormControl>
+                    <DialogContentText>Years used: {this.props.itemDialogData.years.join(', ')}</DialogContentText>
+                    <DialogContentText>Links: {this.props.itemDialogData.links.join(', ')}</DialogContentText>
+                    <DialogContentText>Locations: {this.props.itemDialogData.locations.join(', ')}</DialogContentText>
+                    <Grid container direction='column'>
+                        <FormControl>
+                            <TextField className='m5 qtyInput' type='number' name='qty' value={this.state.qty} onChange={this.handleChange}></TextField>
+                            <FormHelperText>Requested Number</FormHelperText>
+                        </FormControl>
+                        <FormControl>
+                            <TextField className='m5' type=' text' name='reason' value={this.state.reason} onChange={this.handleChange}></TextField>
+                            <FormHelperText>Reason</FormHelperText>
+                        </FormControl>
+                    </Grid>
+
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleSubmit}>
                         Request
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog >
         );
     }
 }
