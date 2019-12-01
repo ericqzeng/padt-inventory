@@ -20,7 +20,7 @@
     "url": "https://github.com/ericqzeng/padt-inventory/issues"
   },
   "homepage": "https://github.com/ericqzeng/padt-inventory#readme",
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "5.0.0"
   }
 }
