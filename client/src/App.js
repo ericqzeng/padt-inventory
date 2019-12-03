@@ -29,8 +29,7 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    //TODO: add login page
-    <Provider store={store}>
+    < Provider store={store} >
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={Login} />
@@ -38,7 +37,7 @@ function App() {
           <Route exact path='/catalog' component={CatalogPage}></Route>
         </Switch>
       </BrowserRouter>
-    </Provider>
+    </Provider >
   );
 }
 

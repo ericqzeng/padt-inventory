@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from "react-redux";
 import { setResults } from '../redux/actions'
-import { FormHelperText, Button, Select, TextField, FormControl, MenuItem, Paper } from '@material-ui/core';
+import { FormHelperText, Button, Select, TextField, FormControl, MenuItem, InputAdornment } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 
 class Search extends React.Component {
     constructor(props) {
@@ -48,27 +49,32 @@ class Search extends React.Component {
     render() {
         return (
             <div>
-                <Paper>
-                    <form onSubmit={this.doSearch} >
-                        <FormControl>
-                            <TextField className='m5' name='name' value={this.state.name} onChange={this.changeHandler} placeholder='Item name' />
-                        </FormControl>
-                        <FormControl>
-                            <Select className='m5' name='type' value={this.state.type} onChange={this.changeHandler}>
-                                <MenuItem value=''>Any</MenuItem>
-                                <MenuItem value='Costume'>Costume</MenuItem>
-                                <MenuItem value='Prop'>Prop</MenuItem>
-                                <MenuItem value='Gear'>Gear</MenuItem>
-                            </Select>
-                            <FormHelperText>Type</FormHelperText>
-                        </FormControl>
-                        {/* <FormControl>
+                <form onSubmit={this.doSearch} >
+                    <FormControl>
+                        <TextField className='m5' name='name'
+                            value={this.state.name} onChange={this.changeHandler} placeholder='Item name'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
+                            }} />
+                    </FormControl>
+                    <FormControl>
+                        <Select className='m5' displayEmpty name='type' value={this.state.type} onChange={this.changeHandler}>
+                            <MenuItem value=''>Any</MenuItem>
+                            <MenuItem value='Costume'>Costume</MenuItem>
+                            <MenuItem value='Prop'>Prop</MenuItem>
+                            <MenuItem value='Gear'>Gear</MenuItem>
+                        </Select>
+                    </FormControl>
+                    {/* <FormControl>
                                 <TextField name="years" value={this.state.years} onChange={this.changeHandler}></TextField>
                                     TODO: maybe add year filters?
                                 </FormControl> */}
-                        <Button onClick={this.doSearch} color='primary'>Full send</Button>
-                    </form>
-                </Paper>
+                    <Button onClick={this.doSearch} color='primary'>Search</Button>
+                </form>
             </div>
         );
     }

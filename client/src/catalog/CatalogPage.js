@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import { MenuIcon } from '@material-ui/icons/Menu'
 import axios from 'axios';
 import ItemCell from './ItemCell'
 import Search from './Search'
@@ -35,6 +36,8 @@ class CatalogPage extends React.Component {
     }
 
     render() {
+        document.body.style.backgroundColor = 'beige';
+
         let table = this.props.data.map((ele, index) => {
             return (
                 <ItemCell key={index} index={index} data={ele}></ItemCell>
@@ -44,14 +47,14 @@ class CatalogPage extends React.Component {
         let inputs = null
         if (this.props.user.admin) {
             inputs = (
-                <Grid container item xs={10} direction='row' justify='center'>
-                    <Grid item xs={4}>
+                <Grid container item xs={12} direction='row' justify='space-between'>
+                    <Grid item >
                         <Search></Search>
                     </Grid>
-                    <Grid container direction='column' item xs={2}>
+                    <div>
                         <Button color='primary' onClick={() => this.props.showAddItemDialog(true)}>Add Item</Button>
                         <Button color='primary' onClick={() => this.props.showOrdersDrawer(true)}>Open Orders</Button>
-                    </Grid>
+                    </div>
                 </Grid>
             )
         } else {
@@ -69,13 +72,20 @@ class CatalogPage extends React.Component {
 
         return (
             <div>
-                <Grid container direction='column' justify='center' alignItems='center' alignContent='center' spacing={5}>
-                    {inputs}
-
+                <AppBar position="static">
+                    <Toolbar className='appbar'>
+                        {/* <IconButton edge="start" color="inherit" aria-label="menu">
+                            {/* <MenuIcon /> */}
+                        {/* </IconButton> */}
+                        {inputs}
+                    </Toolbar>
+                </AppBar>
+                <Grid className="m5" container direction='column' justify='center' alignItems='center' alignContent='center' spacing={5}>
                     <Grid item xs={10} container direction='row' justify='center' alignItems='flex-start' alignContent='center' spacing={1}>
                         {table}
                     </Grid>
                 </Grid>
+
                 <ItemDialog></ItemDialog>
                 <OrdersDialog></OrdersDialog>
                 <AddItemDialog></AddItemDialog>

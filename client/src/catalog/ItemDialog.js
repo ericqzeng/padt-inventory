@@ -87,7 +87,6 @@ class ItemDialog extends React.Component {
             <Dialog open={this.props.itemDialog} onClose={this.handleClose}>
                 <DialogTitle>{this.props.itemDialogData.name}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>{this.props.itemDialogData.images}</DialogContentText>
                     <DialogContentText>{this.props.itemDialogData.type}</DialogContentText>
                     <DialogContentText>Qty: {this.props.itemDialogData.qty}</DialogContentText>
                     <DialogContentText>Years used: {this.props.itemDialogData.years.join(', ')}</DialogContentText>

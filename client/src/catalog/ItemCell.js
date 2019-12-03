@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setItemDialogData } from '../redux/actions';
-import { Grid, Typography, Card } from '@material-ui/core';
+import { Grid, Typography, Card, CardMedia, CardContent, CardActionArea } from '@material-ui/core';
 
 class ItemCell extends React.Component {
 
@@ -15,15 +15,29 @@ class ItemCell extends React.Component {
     render() {
         let index = this.props.index
         let data = this.props.data
+
+        let cardMedia = this.props.data.images[0] ? (
+            <CardMedia
+                component="img"
+                alt={this.props.data.images[0]}
+                height="200"
+                image={this.props.data.images[0]} />
+        ) : (
+                <CardMedia />
+            );
         return (
-            <Grid key={index} item xs={4} onClick={() => this.itemClicked()}>
+            <Grid key={index} item xs={6} md={4} onClick={() => this.itemClicked()}>
                 <Card>
-                    <Typography variant='body1'>{data.images}</Typography>
-                    <Typography variant='h6'>{data.name}</Typography>
-                    <Grid container justify="space-between" direction="row">
-                        <Typography variant='body2'>{data.type}</Typography>
-                        <Typography variant='body2'>Qty: {data.qty}</Typography>
-                    </Grid>
+                    <CardActionArea>
+                        {cardMedia}
+                        <CardContent>
+                            <Typography variant='h6'>{data.name}</Typography>
+                            <Grid container justify="space-between" direction="row">
+                                <Typography variant='body2'>{data.type}</Typography>
+                                <Typography variant='body2'>Qty: {data.qty}</Typography>
+                            </Grid>
+                        </CardContent>
+                    </CardActionArea>
                 </Card>
             </Grid>
         )
