@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var url = "mongodb://ds251158.mlab.com:51158/heroku_jnj6jb6x";
+var url = "mongodb://user:password1@ds251158.mlab.com:51158/heroku_jnj6jb6x";
 // var url = "mongodb://localhost:27017/padt";
 
 module.exports = () => {
