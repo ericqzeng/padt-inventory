@@ -59,13 +59,13 @@ class CatalogPage extends React.Component {
             )
         } else {
             inputs = (
-                <Grid container item xs={10} direction='row' justify='center'>
-                    <Grid item xs={4}>
+                <Grid container item xs={12} direction='row' justify='space-between'>
+                    <Grid item>
                         <Search></Search>
                     </Grid>
-                    <Grid container direction='column' item xs={2}>
+                    <div>
                         <Button color='primary' onClick={() => this.props.showOrdersDrawer(true)}>Your Orders</Button>
-                    </Grid>
+                    </div>
                 </Grid>
             )
         }
